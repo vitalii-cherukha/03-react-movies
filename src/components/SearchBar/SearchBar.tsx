@@ -1,8 +1,15 @@
-
 import css from './SearchBar.module.css'
 
+interface SearchBarProps {
+    handleSubmit: (value: string) => void;
+}
 
-const SearchBar = () => {
+const SearchBar = ({handleSubmit}: SearchBarProps) => {
+    const onSubmit = (formData: FormData) => {
+        const value = formData.get('query') as string;
+        handleSubmit(value);
+    }
+
   return (
     <header className={css.header}>
   <div className={css.container}>
@@ -14,7 +21,7 @@ const SearchBar = () => {
     >
       Powered by TMDB
     </a>
-    <form className={css.form}>
+    <form className={css.form} action={onSubmit} >
       <input
         className={css.input}
         type="text"
