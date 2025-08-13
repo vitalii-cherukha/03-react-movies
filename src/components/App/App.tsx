@@ -5,13 +5,13 @@ import { getMovies } from '../../services/movieService';
 import { Movie } from '../../types/movie';
 import MovieGrid from '../MovieGrid/MovieGrid';
 import MovieModal from '../MovieModal/MovieModal';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
 
 const App = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [selectMovie, setSelectMovie] = useState<Movie | null>(null);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -35,21 +35,22 @@ const App = () => {
     }
   };
 
-  const onSelected = (movie: Movie) => {
-    setSelectedMovie(movie);
+  const onSelect = (movie: Movie) => {
+    setSelectMovie(movie);
   };
   const onClose = () => {
-    setSelectedMovie(null);
+    setSelectMovie(null);
   };
 
   return (
     <div className={css.app}>
-      <SearchBar handleSubmit={handleSubmit} />
-      <MovieGrid movies={movies} onSelected={onSelected} />
+      <SearchBar onSubmit={handleSubmit} />
+      <MovieGrid movies={movies} onSelect={onSelect} />
       {isEmpty && <p>Movies not found</p>}
       {isError && <ErrorMessage />}
-      {selectedMovie && <MovieModal movie={selectedMovie} onClose={onClose} />}
+      {selectMovie && <MovieModal movie={selectMovie} onClose={onClose} />}
       {isLoading && <Loader />}
+      <Toaster />
     </div>
   );
 };
