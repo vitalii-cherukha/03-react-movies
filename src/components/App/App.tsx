@@ -16,11 +16,11 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const handleSubmit = async (query: string) => {
-    const data = await getMovies(query);
-    setIsEmpty(false);
-    setMovies([]);
     setIsLoading(true);
     setIsError(false);
+    setIsEmpty(false);
+    setMovies([]);
+    const data = await getMovies(query);
     try {
       if (!data.length) {
         toast('No movies found for your request');
