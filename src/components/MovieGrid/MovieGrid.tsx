@@ -11,7 +11,7 @@ const MovieGrid = ({ onSelect, movies }: MovieGridProps) => {
   return (
     <ul className={css.grid}>
       {movies
-        .filter(movie => movie.poster_path)
+        .filter(movie => movie.poster_path && movie.backdrop_path)
         .map(movie => (
           <li key={movie.id}>
             <div className={css.card}>
